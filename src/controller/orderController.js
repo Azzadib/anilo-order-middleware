@@ -114,9 +114,34 @@ const placeOrder = (req, res) => {
     }
 }
 
+const addPaymentImg = (req, res) => {
+    try {
+        const { orderid } = req.params
+        const { images } = req.dataUploaded
+
+        const index = orders.findIndex((order) => order.order_id == orderid)
+
+        orders[index] = {
+            ...orders[index],
+            order_status: 'paid',
+            order_pyt_proof: images[0].fileName
+        }
+
+        const result = orders[index]
+
+        if (result) return res.status(201).send({ message: "Image uploaded successfully." })
+
+        return res.status(500).send({ message: "Failed to upload image." })
+    } catch (error) {
+        console.log('Place order', error)
+        return res.status(500).send({ message: "Failed to upload image." })
+    }
+}
+
 export default {
     getAllOrder,
     createOrder,
     findOrderById,
     placeOrder,
+    addPaymentImg,
 }

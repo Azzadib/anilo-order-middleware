@@ -8,9 +8,15 @@ router.get('/', indexController.orderController.getAllOrder)
 //* add product to order
 router.post('/', indexController.productController.getSelectedProducts, indexController.orderController.createOrder)
 
-//* Plce order
+//* Place order
 router.post('/:orderid',
     indexController.orderController.findOrderById, indexController.productController.getOrderedProducts,
     indexController.productController.reduceProductQty, indexController.orderController.placeOrder)
+
+//* Upload payment proof
+router.post('/payment/:orderid', indexController.uploadController.uploadPayment, indexController.orderController.addPaymentImg)
+
+//* Download payment proof
+router.get('/download/:orderid', indexController.downloadCntroller.download)
 
 export default router
