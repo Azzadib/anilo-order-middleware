@@ -19,4 +19,7 @@ router.post('/payment/:orderid', indexController.uploadController.uploadPayment,
 //* Download payment proof
 router.get('/download/:orderid', indexController.downloadCntroller.download)
 
+//* Update order
+router.put('/update/:orderid', indexController.orderController.updateOrder)
+
 export default router

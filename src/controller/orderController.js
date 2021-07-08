@@ -138,10 +138,36 @@ const addPaymentImg = (req, res) => {
     }
 }
 
+const updateOrder = (req, res) => {
+    try {
+        const { orderid } = req.params
+        const { order_status, shipment_status, shipping_id } = req.body
+
+        const index = orders.findIndex((order) => order.order_id == orderid)
+
+        orders[index] = {
+            ...orders[index],
+            order_status,
+            shipment_status,
+            shipping_id
+        }
+
+        const result = orders[index]
+
+        if (result) return res.status(201).send({ message: "Order updated successfully." })
+
+        return res.status(500).send({ message: "Failed to update order." })
+    } catch (error) {
+        console.log('Update order', error)
+        return res.status(500).send({ message: "Failed to update order." })
+    }
+}
+
 export default {
-    getAllOrder,
+    addPaymentImg,
     createOrder,
     findOrderById,
+    getAllOrder,
     placeOrder,
-    addPaymentImg,
+    updateOrder,
 }
