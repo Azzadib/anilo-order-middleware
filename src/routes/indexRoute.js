@@ -1,5 +1,7 @@
 import productRoutes from './productRoutes'
+import orderRoutes from './orderRoutes'
 
 export default {
-    productRoutes
+    orderRoutes,
+    productRoutes,
 }

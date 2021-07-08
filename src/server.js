@@ -19,5 +19,6 @@ app.use('/order/test', (_, res) => {
 })
 
 app.use('/api/product', routes.productRoutes)
+app.use('/api/order', routes.orderRoutes)
 
 export default app

@@ -27,7 +27,38 @@ const getOneProduct = (req, res) => {
     }
 }
 
+const getSelectedProducts = (req, res, next) => {
+    try {
+        const selected = []
+        const notAvailable = []
+        const { slctdProds } = req.body
+        slctdProds.map((slctd) => {
+            products.map((product) => { 
+                if (product.id == slctd.product_id) {
+                    if (product.quantities <= 0 || product.quantities < slctd.order_qty) notAvailable.push(product.id)
+                    selected.push(product)
+                }
+            })
+        })
+
+        req.selected = selected
+        req.notAvailable = notAvailable
+        next()
+    } catch (error) {
+        console.log('Get product stock', error)
+        return res.status(500).send({ message: "Failed to add product to order"})
+    }
+}
+
+/* const reduceQty = (req, res, next) => {
+    try {
+        const selected = req.selected
+        const { product_id, order_qty } = req.body
+    }
+} */
+
 export default {
     getAllProducts,
-    getOneProduct
+    getOneProduct,
+    getSelectedProducts,
 }
